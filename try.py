@@ -77,7 +77,7 @@ def apply_dcp(image):
     transmission = transmission_map(image, atm_light)
     dehazed_image = recover_scene_radiance(image, transmission, atm_light)
     
-    # Post-processing: enhance contrast, fire, and brightness
+
     dehazed_image = apply_clahe(dehazed_image)
     dehazed_image = apply_gamma_correction(dehazed_image, gamma=1.1)
     dehazed_image = apply_sharpening(dehazed_image)
@@ -110,9 +110,8 @@ def process_video(input_path, output_path):
     out.release()
     print("Video processing complete!")
 
-# Paths to input and output video
+
 input_video_path = 'input_video3.mp4'
 output_video_path = 'output_video2.mp4'
 
-# Run the video processing function
 process_video(input_video_path, output_video_path)
