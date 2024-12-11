@@ -25,8 +25,7 @@ def transmission_map(image, atmospheric_light, omega=0.9, size=15):
     norm_image = image / atmospheric_light
     dark_channel_norm = dark_channel(norm_image, size)
     transmission = 1 - omega * dark_channel_norm
-    
-    # Apply bilateral filter or guided filter (if ximgproc is available)
+   
     transmission = cv2.bilateralFilter(transmission.astype(np.float32), d=9, sigmaColor=75, sigmaSpace=75)
     return transmission
 
@@ -40,7 +39,7 @@ def apply_clahe(image):
     """Apply CLAHE (Contrast Limited Adaptive Histogram Equalization) to enhance contrast."""
     lab = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
     l, a, b = cv2.split(lab)
-    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))  # Slightly higher clipLimit
+    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))  
     cl = clahe.apply(l)
     merged_lab = cv2.merge((cl, a, b))
     enhanced_image = cv2.cvtColor(merged_lab, cv2.COLOR_LAB2BGR)
